@@ -3,6 +3,16 @@ from django.core.exceptions import ObjectDoesNotExist, MultipleObjectsReturned
 import random
 
 
+COMMENDATIONS = [
+    "Молодец!",
+    "Отлично!",
+    "Прекрасная работа!",
+    "Гораздо лучше, чем вчера!",
+    "Ты растёшь над собой!",
+    "Так держать!",
+]
+
+
 def create_commendation(schoolkid_name, subject_title):
     try:
         schoolkid = Schoolkid.objects.get(full_name__contains=schoolkid_name)
@@ -24,16 +34,9 @@ def create_commendation(schoolkid_name, subject_title):
         return
 
     lesson = lessons.first()
-    commendations = [
-        "Молодец!",
-        "Отлично!",
-        "Прекрасная работа!",
-        "Гораздо лучше, чем вчера!",
-        "Ты растёшь над собой!",
-        "Так держать!",
-    ]
+
     Commendation.objects.create(
-        text=random.choice(commendations),
+        text=random.choice(COMMENDATIONS),
         created=lesson.date,
         schoolkid=schoolkid,
         subject=lesson.subject,
