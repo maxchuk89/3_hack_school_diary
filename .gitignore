@@ -150,3 +150,13 @@ venv/
 .venv/
 .idea/
 .vscode/
+datacenter/
+
+
+
+requirements.txt
+manage.py
+db.sqlite3
+.gitattributes
+
+project/

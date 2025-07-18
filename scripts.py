@@ -1,6 +1,7 @@
-from datacenter.models import Schoolkid, Lesson, Commendation, Subject
+from datacenter.models import Schoolkid, Lesson, Commendation, Subject, Mark, Chastisement
 from django.core.exceptions import ObjectDoesNotExist, MultipleObjectsReturned
 import random
+
 
 def create_commendation(schoolkid_name, subject_title):
     try:
@@ -39,3 +40,15 @@ def create_commendation(schoolkid_name, subject_title):
         teacher=lesson.teacher
     )
     print(f"Похвала для {schoolkid.full_name} по предмету {subject_title} добавлена.")
+
+
+def fix_marks(schoolkid):
+    bad_marks = Mark.objects.filter(schoolkid=schoolkid, points__in=[2, 3])
+    bad_marks.update(points=5)
+    print(f"Заменено {bad_marks.count()} плохих оценок на пятёрки.")
+
+
+def remove_chastisements(schoolkid):
+    chastisements = Chastisement.objects.filter(schoolkid=schoolkid)
+    deleted, _ = chastisements.delete()
+    print(f"Удалено замечаний: {deleted}")
